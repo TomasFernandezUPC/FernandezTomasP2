@@ -46,6 +46,9 @@ class AFernandezTomasP2Character : public ACharacter // Hereda de ACharacter (pe
 
 protected:
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Estadisticas")
+	int Vida;
+
 	/** Acción de entrada para saltar. */
 	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* JumpAction;
@@ -61,6 +64,18 @@ protected:
 	/** Acción de entrada para mirar con el mouse. */
 	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* MouseLookAction;
+
+	// Input de prueba para mostrar texto en la pantalla
+	UPROPERTY(EditAnywhere, Category = "Input")
+	UInputAction* TextAction;
+
+	// Input de prueba para curar vida en la pantalla
+	UPROPERTY(EditAnywhere, Category = "Input")
+	UInputAction* HealAction;
+
+	// Input de prueba para mostrar vida en la pantalla
+	UPROPERTY(EditAnywhere, Category = "Input")
+	UInputAction* LifeAction;
 
 public:
 
@@ -97,6 +112,15 @@ public:
 	/** Maneja el final del salto (accesible desde controles o interfaces). */
 	UFUNCTION(BlueprintCallable, Category = "Input")
 	virtual void DoJumpEnd();
+	/** Testeando */
+	UFUNCTION(Blueprintcallable, Category = "Input")
+	virtual void Texto();
+	/** Creando la funcion de curar vida */
+	UFUNCTION(Blueprintcallable, Category = "Input")
+	virtual void CurarVida();
+	UFUNCTION(Blueprintcallable, Category = "Input")
+	/** Creando la funcion de mostrar vida */
+	virtual void MostrarVida();
 
 public:
 
@@ -105,4 +129,5 @@ public:
 
 	/** Devuelve el subobjeto FollowCamera (para acceso en código o Blueprints). */
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+
 };

@@ -85,6 +85,15 @@ void AFernandezTomasP2Character::SetupPlayerInputComponent(UInputComponent* Play
 
 		// Asigna acción de mirar con joystick/otro control
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AFernandezTomasP2Character::Look);
+
+		// Muestra un mensaje en pantalla cuando se presiona la tecla asignada a TextAction
+		EnhancedInputComponent->BindAction(TextAction, ETriggerEvent::Started, this, &AFernandezTomasP2Character::Texto);
+	
+		// Muestra un mensaje en pantalla cuando se presiona la tecla asignada a CurarVida
+		EnhancedInputComponent->BindAction(HealAction, ETriggerEvent::Started, this, &AFernandezTomasP2Character::CurarVida);
+
+		// Muestra un mensaje en pantalla cuando se presiona la tecla asignada a MostrarVida
+		EnhancedInputComponent->BindAction(LifeAction, ETriggerEvent::Started, this, &AFernandezTomasP2Character::MostrarVida);
 	}
 	else
 	{
@@ -168,4 +177,25 @@ void AFernandezTomasP2Character::DoJumpEnd()
 {
 	// Llama a la función que detiene el salto
 	StopJumping();
+}
+
+void AFernandezTomasP2Character::Texto()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Orange, TEXT("Has presionado la tecla T"));
+}
+
+void AFernandezTomasP2Character::CurarVida()
+{
+	Vida += 20;
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Te has curado 20 de vida"));
+	if (Vida > 100)
+	{
+		Vida = 100;
+	}
+	MostrarVida();
+}
+void AFernandezTomasP2Character::MostrarVida()
+{
+	FString VidaTexto = FString::Printf(TEXT("Vida: %d"), Vida);
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, VidaTexto);
 }
